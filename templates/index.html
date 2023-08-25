@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" action="/" class="container mx-auto mt-4" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="image" class="form-label fs-4">Upload an image:</label>
+        <input type="file" id="image" name="image" class="form-control-file" accept="image/*" required>
+    </div>
+    <div class="mb-3">
+        <label for="plaintext" class="form-label fs-4">Enter text:</label>
+        <textarea class="form-control" placeholder="Type here" id="plaintext" name="plaintext"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="keyword" class="form-label fs-4">Keyword:</label>
+        <input type="text" id="keyword" name="keyword" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <div class="d-flex flex-column flex-sm-row">
+            <button type="submit" value="encrypt" name="action"
+                class="btn btn-md btn-outline-dark mb-2 mb-sm-0 me-sm-2">Encrypt</button>
+            <button type="submit" value="decrypt" name="action" class="btn btn-md btn-outline-dark">Decrypt</button>
+        </div>
+    </div>
+</form>
+
+{% if result[1] == 'image' %}
+<div class="container my-3 text-center">
+    <img src="{{ result[0] }}" alt="Result Image" class="img-fluid mb-3">
+    <a href="{{ result[0] }}" download="encrypted_image.png" class="btn btn-sm btn-outline-primary my-2">Download</a>
+</div>
+{% else %}
+<div class="container my-3 text-center">
+    <textarea class="form-control" placeholder="" id="result" name="result" rows="5">{{ result[0] }}</textarea>
+    <button onclick="myFunction()" class="btn btn-sm btn-outline-dark my-2">Copy</button>
+</div>
+<script>
+    function myFunction() {
+        var copyText = document.getElementById("result");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+    }
+</script>
+{% endif %}
+
+{% endblock body %}
