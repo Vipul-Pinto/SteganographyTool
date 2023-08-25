@@ -22,6 +22,7 @@
     </div>
 </form>
 
+{% if result != None %}
 {% if result[1] == 'image' %}
 <div class="container my-3 text-center">
     <img src="{{ result[0] }}" alt="Result Image" class="img-fluid mb-3">
@@ -40,6 +41,7 @@
         navigator.clipboard.writeText(copyText.value);
     }
 </script>
+{% endif %}
 {% endif %}
 
 {% endblock body %}
